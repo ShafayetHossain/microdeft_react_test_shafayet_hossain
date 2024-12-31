@@ -44,9 +44,19 @@ const Carts = () => {
 
   return (
     <div className="flex flex-wrap my-8">
-      {
-        courses.map((data)=> <CourseCard key={data.id} course = {data} ></CourseCard>)
-      }
+      {courses.length ? (
+        courses.map((data) => (
+          <CourseCard key={data.id} course={data}></CourseCard>
+        ))
+      ) : user ? (
+        <h1 className="font-bold text-4xl text-red-300">
+          Please Post Your Course..!
+        </h1>
+      ) : (
+        <h1 className="font-bold text-4xl text-red-300">
+          Please Login First..!
+        </h1>
+      )}
     </div>
   );
 };

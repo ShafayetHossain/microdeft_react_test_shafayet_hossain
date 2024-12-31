@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ContextProvider } from "../../Provider/Provider";
 
 const Registration = () => {
   const [viewPassword, setViewPassword] = useState(true);
+  const { user, setUser } = useContext(ContextProvider);
+  const navigate = useNavigate();
+
 
   const handleRegistration = async (event) => {
     event.preventDefault();
@@ -29,7 +33,10 @@ const Registration = () => {
       const responseData = await response.json();
 
       if (response.ok) {
+        setUser(responseData);
         alert("Registration successful:");
+        navigate("/");
+
       } else {
         alert("Registration failed:");
       }
