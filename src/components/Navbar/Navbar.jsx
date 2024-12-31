@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ContextProvider } from "../../Provider/Provider";
 
 const Navbar = () => {
   const { user,setUser } = useContext(ContextProvider);
+  const navigate = useNavigate();
   const userData = user?.data?.user;
-  console.log(userData);
   const link = (
     <>
       <li>
@@ -16,6 +16,9 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to={"/registration"}>Registration</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/courses"}>Post Courses</NavLink>
       </li>
     </>
   );
@@ -54,7 +57,7 @@ const Navbar = () => {
       <div className="navbar-end">
         <span className="mr-3">{`User: ${user? userData?.name: "Empty"}`}</span>
         {user ? (
-          <button onClick={()=>setUser(null)} className="btn">Logout</button>
+          <button onClick={()=>{setUser(null);navigate("/")}} className="btn">Logout</button>
         ) : (
           <Link to={"/login"} className="btn">Login</Link>
         )}

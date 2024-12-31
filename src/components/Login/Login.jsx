@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ContextProvider } from "../../Provider/Provider";
 
 const Login = () => {
   const [viewPassword, setViewPassword] = useState(true);
   const {user, setUser} = useContext(ContextProvider);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -29,13 +30,13 @@ const Login = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Login failed. Please check your credentials.");
+        throw new Error("Login failed.!");
       }
       const data = await response.json();
       setUser(data);
-      if(user){
+      if(user || data){
         alert("Login Successful.!");
-        navigate("/");
+        navigate(`${location.state || "/"}`);
       }
     } catch (err) {
       console.log(err.message);
