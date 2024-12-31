@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { ContextProvider } from "../../Provider/Provider";
+import { useNavigate } from "react-router-dom";
 
 const Courses = () => {
   const { user, courses, setCourses } = useContext(ContextProvider);
+  const navigate = useNavigate();
 
   const handlePostData = async (event) => {
     const { token } = user.data;
@@ -38,6 +40,7 @@ const Courses = () => {
         const data = await response.json();
         alert("Course added successfully!");
         setCourses([...courses,data]);
+        navigate("/");
       } else {
         alert("Failed to add course");
       }

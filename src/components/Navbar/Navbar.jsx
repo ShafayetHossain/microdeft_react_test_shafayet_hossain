@@ -57,9 +57,9 @@ const Navbar = () => {
       <div className="navbar-end">
         <span className="mr-3">{`User: ${user? userData?.name: "Empty"}`}</span>
         {user ? (
-          <button onClick={()=>{setUser(null);navigate("/")}} className="btn">Logout</button>
+          <button onClick={()=>{setUser(null);navigate("/")}} className="btn btn-success btn-sm">Logout</button>
         ) : (
-          <Link to={"/login"} className="btn">Login</Link>
+          <Link to={"/login"} className="btn btn-warning btn-sm">Login</Link>
         )}
       </div>
     </div>

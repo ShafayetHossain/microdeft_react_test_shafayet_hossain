@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { ContextProvider } from "../../Provider/Provider";
+import CourseCard from "../CourseCard/CourseCard";
 
 const Carts = () => {
   const { user, courses, setCourses } = useContext(ContextProvider);
@@ -41,7 +42,13 @@ const Carts = () => {
     fetchCourses();
   }, []);
 
-  return <div></div>;
+  return (
+    <div className="flex flex-wrap my-8">
+      {
+        courses.map((data)=> <CourseCard key={data.id} course = {data} ></CourseCard>)
+      }
+    </div>
+  );
 };
 
 export default Carts;
