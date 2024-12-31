@@ -1,20 +1,21 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ContextProvider } from "../../Provider/Provider";
 
 const Navbar = () => {
-  const {user}= useContext(ContextProvider);
-  console.log(user);
+  const { user,setUser } = useContext(ContextProvider);
+  const userData = user?.data?.user;
+  console.log(userData);
   const link = (
     <>
       <li>
-        <NavLink to={'/'}>Home</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={'/login'}>Login</NavLink>
+        <NavLink to={"/login"}>Login</NavLink>
       </li>
       <li>
-        <NavLink to={'/registration'}>Registration</NavLink>
+        <NavLink to={"/registration"}>Registration</NavLink>
       </li>
     </>
   );
@@ -45,13 +46,18 @@ const Navbar = () => {
             {link}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">{`Login Email: ${user? userData?.email: "Empty"}`}</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <span className="mr-3">{`User: ${user? userData?.name: "Empty"}`}</span>
+        {user ? (
+          <button onClick={()=>setUser(null)} className="btn">Logout</button>
+        ) : (
+          <Link to={"/login"} className="btn">Login</Link>
+        )}
       </div>
     </div>
   );
