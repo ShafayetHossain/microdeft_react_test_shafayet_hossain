@@ -8,7 +8,6 @@ const Registration = () => {
   const { user, setUser } = useContext(ContextProvider);
   const navigate = useNavigate();
 
-
   const handleRegistration = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -33,10 +32,11 @@ const Registration = () => {
       const responseData = await response.json();
 
       if (response.ok) {
-        setUser(responseData);
+        localStorage.setItem("local_user", JSON.stringify(responseData));
+        const localUser = JSON.parse(localStorage.getItem("local_user"));
+        setUser(localUser);
         alert("Registration successful:");
         navigate("/");
-
       } else {
         alert("Registration failed:");
       }

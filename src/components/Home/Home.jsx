@@ -1,12 +1,11 @@
-import React from 'react';
-import Carts from '../Carts/Carts';
-
+import Carts from "../Carts/Carts";
 const Home = () => {
-    return (
-        <div>
-            <Carts></Carts>
-        </div>
-    );
+
+  return (
+    <div>
+      <Carts></Carts>
+    </div>
+  );
 };
 
 export default Home;

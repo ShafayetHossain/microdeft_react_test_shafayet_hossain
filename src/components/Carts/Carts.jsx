@@ -3,11 +3,13 @@ import { ContextProvider } from "../../Provider/Provider";
 import CourseCard from "../CourseCard/CourseCard";
 
 const Carts = () => {
-  const { user, courses, setCourses } = useContext(ContextProvider);
+  const { user,setUser, courses, setCourses, } = useContext(ContextProvider);
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const { token } = user?.data;
+      const localUser = JSON.parse(localStorage.getItem("local_user"));
+      setUser(localUser);
+      const { token } = user?.data || localUser?.data;
 
       if (!token) {
         alert("Authorization token not found. Please log in.");
@@ -30,7 +32,6 @@ const Carts = () => {
         if (response.ok) {
           const data = await response.json();
           setCourses(data?.data?.data || []);
-          console.log(courses);
         } else {
           alert("Failed to fetch courses");
         }

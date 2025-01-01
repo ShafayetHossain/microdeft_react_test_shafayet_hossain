@@ -5,7 +5,8 @@ import { ContextProvider } from "../../Provider/Provider";
 
 const Login = () => {
   const [viewPassword, setViewPassword] = useState(true);
-  const {user, setUser} = useContext(ContextProvider);
+  const { user, setUser, } =
+    useContext(ContextProvider);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,8 +34,10 @@ const Login = () => {
         throw new Error("Login failed.!");
       }
       const data = await response.json();
-      setUser(data);
-      if(user || data){
+      localStorage.setItem("local_user", JSON.stringify(data));
+      const localUser = JSON.parse(localStorage.getItem("local_user"));
+      setUser(localUser);
+      if (user || data) {
         alert("Login Successful.!");
         navigate(`${location.state || "/"}`);
       }

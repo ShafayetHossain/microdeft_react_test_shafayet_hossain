@@ -3,9 +3,21 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ContextProvider } from "../../Provider/Provider";
 
 const Navbar = () => {
-  const { user,setUser } = useContext(ContextProvider);
+  const { user, setUser, setCourses } = useContext(ContextProvider);
   const navigate = useNavigate();
+
+  // const localUser = JSON.parse(localStorage.getItem("local_user"));
+  // setUser(localUser);
+  // console.log(localUser.data);
+
   const userData = user?.data?.user;
+  const handleLogout = () => {
+    setUser(null);
+    setCourses([]);
+    localStorage.removeItem("local_user");
+    navigate("/");
+  };
+
   const link = (
     <>
       <li>
@@ -49,17 +61,25 @@ const Navbar = () => {
             {link}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">{`Login Email: ${user? userData?.email: "Empty"}`}</a>
+        <a className="btn btn-ghost text-xl">{`Login Email: ${
+          user ? userData?.email : "Empty"
+        }`}</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{link}</ul>
       </div>
       <div className="navbar-end">
-        <span className="mr-3">{`User: ${user? userData?.name: "Empty"}`}</span>
+        <span className="mr-3">{`User: ${
+          user ? userData?.name : "Empty"
+        }`}</span>
         {user ? (
-          <button onClick={()=>{setUser(null);navigate("/")}} className="btn btn-success btn-sm">Logout</button>
+          <button onClick={handleLogout} className="btn btn-success btn-sm">
+            Logout
+          </button>
         ) : (
-          <Link to={"/login"} className="btn btn-warning btn-sm">Login</Link>
+          <Link to={"/login"} className="btn btn-warning btn-sm">
+            Login
+          </Link>
         )}
       </div>
     </div>
